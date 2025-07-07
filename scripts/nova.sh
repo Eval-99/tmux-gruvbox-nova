@@ -19,7 +19,7 @@ pane=$(get_option "@nova-pane" "#S:#I:#W")
 # Default segments
 #
 
-upsert_option "@nova-segment-mode" "#{?client_prefix,Ω,ω}"
+upsert_option "@nova-segment-mode" "#{?client_prefix,,}"
 upsert_option "@nova-segment-whoami" "#(whoami)@#h"
 
 #
