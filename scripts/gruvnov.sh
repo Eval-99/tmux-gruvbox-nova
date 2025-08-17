@@ -12,7 +12,6 @@ padding=$(get_option "@gruvnov-padding" 1)
 nerdfonts=$(get_option "@gruvnov-nerdfonts" false)
 nerdfonts_right=$(get_option "@gruvnov-nerdfonts-right" )
 nerdfonts_left=$(get_option "@gruvnov-nerdfonts-left" )
-nerdfonts_doom=$(get_option "@gruvnov-nerdfonts-doom" )
 rows=$(get_option "@gruvnov-rows" 0)
 pane=$(get_option "@gruvnov-pane" "#S:#I:#W")
 
@@ -134,7 +133,7 @@ tmux set-option -g status-justify ${pane_justify}
 
 if [ $nerdfonts = true ]; then
   tmux set-window-option -g window-status-current-format "#[fg=${status_style_active_bg},bg=${status_style_bg}]"
-  tmux set-window-option -ga window-status-current-format "$nerdfonts_doom"
+  tmux set-window-option -ga window-status-current-format "$nerdfonts_right"
 fi
 
 tmux set-window-option -g window-status-format "#{?window_activity_flag,"
