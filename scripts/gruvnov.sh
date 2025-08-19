@@ -10,8 +10,8 @@ source $current_dir/utils.sh
 
 padding=$(get_option "@gruvnov-padding" 1)
 nerdfonts=$(get_option "@gruvnov-nerdfonts" false)
-nerdfonts_right=$(get_option "@gruvnov-nerdfonts-right" )
-nerdfonts_left=$(get_option "@gruvnov-nerdfonts-left" )
+nerdfonts_right=$(get_option "@gruvnov-nerdfonts-right" )
+nerdfonts_left=$(get_option "@gruvnov-nerdfonts-left" )
 rows=$(get_option "@gruvnov-rows" 0)
 pane=$(get_option "@gruvnov-pane" "#S:#I:#W")
 
