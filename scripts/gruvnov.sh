@@ -71,7 +71,7 @@ tmux set-option -g status-style "bg=$status_style_bg,fg=$status_style_fg"
 #
 
 pane_border_style=$(get_option "@gruvnov-pane-border-style" "#282a36")
-pane_active_border_style=$(get_option "@gruvnov-pane-active-border-style" "#44475a")
+pane_active_border_style=$(get_option "@gruvnov-pane-active-border-style" "#fabd2f")
 tmux set-option -g pane-border-style "fg=${pane_border_style}"
 tmux set-option -g pane-active-border-style "fg=${pane_active_border_style}"
 
