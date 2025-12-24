@@ -13,7 +13,8 @@ nerdfonts=$(get_option "@gruvnov-nerdfonts" false)
 nerdfonts_right=$(get_option "@gruvnov-nerdfonts-right" )
 nerdfonts_left=$(get_option "@gruvnov-nerdfonts-left" )
 rows=$(get_option "@gruvnov-rows" 1)
-pane=$(get_option "@gruvnov-pane" "#S:#I:#W")
+pane=$(get_option "@gruvnov-pane" "#I#{?pane_in_mode,  #{pane_mode},}  #W#{?window_zoomed_flag, ,}")
+# pane=$(get_option "@gruvnov-pane" "#S:#I:#W") # Session, Index, Window
 
 # #44475a
 # #f8f8f2
