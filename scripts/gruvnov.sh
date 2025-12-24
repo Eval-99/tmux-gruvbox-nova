@@ -79,8 +79,8 @@ tmux set-option -g mode-style "bg=$mode_style_bg,fg=$mode_style_fg"
 #
 
 status_style_bg=$(get_option "@gruvnov-status-style-bg" "#44475a")
-status_style_fg=$(get_option "@gruvnov-status-style-fg" "$gruvnov_red") # Used to be #f8f8f2
-status_style_active_bg=$(get_option "@gruvnov-status-style-active-bg" "$gruvnov_bg")
+status_style_fg=$(get_option "@gruvnov-status-style-fg" "$gruvnov_red")              # Used to be #f8f8f2
+status_style_active_bg=$(get_option "@gruvnov-status-style-active-bg" "$gruvnov_bg") # Used to be #6272a4
 status_style_active_fg=$(get_option "@gruvnov-status-style-active-fg" "$gruvnov_fg") # Used to be #f8f8f2
 status_style_activity_fg=$(get_option "@gruvnov-status-activity-fg" "#ff79C6")
 tmux set-option -g status-style "bg=$status_style_bg,fg=$status_style_fg"
