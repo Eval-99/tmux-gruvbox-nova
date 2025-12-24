@@ -2,7 +2,7 @@
 export LC_ALL=en_US.UTF-8
 
 current_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source $current_dir/utils.sh
+source "$current_dir"/utils.sh
 
 #
 # global options
@@ -29,7 +29,7 @@ upsert_option "@gruvnov-segment-whoami" "#(whoami)@#h"
 if [ "$rows" -eq 0 ]; then
   tmux set-option -g status on
 else
-  tmux set-option -g status $(expr $rows + 1)
+  tmux set-option -g status $(expr "$rows" + 1)
 fi
 
 #
@@ -37,7 +37,7 @@ fi
 #
 
 interval=$(get_option "@gruvnov-interval" 5)
-tmux set-option -g interval $interval
+tmux set-option -g interval "$interval"
 
 #
 # UI style
@@ -80,7 +80,7 @@ tmux set-option -g pane-active-border-style "fg=${pane_active_border_style}"
 #
 
 segments_left=$(get_option "@gruvnov-segments-0-left" "")
-IFS=' ' read -r -a segments_left <<<$segments_left
+IFS=' ' read -r -a segments_left <<<"$segments_left"
 
 tmux set-option -g status-left ""
 
@@ -89,25 +89,25 @@ first_left_nerdfont=$(get_option "@gruvnov-nerdfonts-first" "")
 for segment in "${segments_left[@]}"; do
   segment_content=$(get_option "@gruvnov-segment-$segment" "mode")
   segment_colors=$(get_option "@gruvnov-segment-$segment-colors" "#282a36 #f8f8f2")
-  IFS=' ' read -r -a segment_colors <<<$segment_colors
+  IFS=' ' read -r -a segment_colors <<<"$segment_colors"
   if [ "$segment_content" != "" ]; then
     # condition everything on the non emptiness of the evaluated segment
     tmux set-option -ga status-left "#{?#{w:#{E:@gruvnov-segment-$segment}},"
 
-    if [ $nerdfonts = true ] && [ $first_left_segment = true ]; then
+    if [ "$nerdfonts" = true ] && [ $first_left_segment = true ]; then
       tmux set-option -ga status-left "#[fg=${segment_colors[0]}#,bg=${segment_colors[1]}]"
       tmux set-option -ga status-left "$first_left_nerdfont"
     fi
 
-    if [ $nerdfonts = true ] && [ $first_left_segment = false ]; then
+    if [ "$nerdfonts" = true ] && [ $first_left_segment = false ]; then
       tmux set-option -ga status-left "#[bg=${segment_colors[0]}]"
       tmux set-option -ga status-left "$nerdfonts_left"
     fi
 
     tmux set-option -ga status-left "#[fg=${segment_colors[1]}#,bg=${segment_colors[0]}]"
-    tmux set-option -ga status-left "$(padding $padding)"
+    tmux set-option -ga status-left "$(padding "$padding")"
     tmux set-option -ga status-left "$segment_content"
-    tmux set-option -ga status-left "$(padding $padding)"
+    tmux set-option -ga status-left "$(padding "$padding")"
 
     # set the fg color for the next nerdfonts seperator
     tmux set-option -ga status-left "#[fg=${segment_colors[0]}]"
@@ -119,7 +119,7 @@ for segment in "${segments_left[@]}"; do
   fi
 done
 
-if [ $nerdfonts = true ]; then
+if [ "$nerdfonts" = true ]; then
   tmux set-option -ga status-left "#[bg=${status_style_bg}]"
   tmux set-option -ga status-left "$nerdfonts_left"
 fi
@@ -129,9 +129,9 @@ fi
 #
 
 pane_justify=$(get_option "@gruvnov-pane-justify" "left")
-tmux set-option -g status-justify ${pane_justify}
+tmux set-option -g status-justify "${pane_justify}"
 
-if [ $nerdfonts = true ]; then
+if [ "$nerdfonts" = true ]; then
   tmux set-window-option -g window-status-current-format "#[fg=${status_style_active_bg},bg=${status_style_bg}]"
   tmux set-window-option -ga window-status-current-format "$nerdfonts_right"
 fi
@@ -140,31 +140,31 @@ tmux set-window-option -g window-status-format "#{?window_activity_flag,"
 tmux set-window-option -ga window-status-format "#[bg=$status_style_activity_fg#,fg=$status_style_bg],"
 tmux set-window-option -ga window-status-format "#[fg=$status_style_fg#,bg=$status_style_bg]}"
 
-if [ $nerdfonts = true ]; then
+if [ "$nerdfonts" = true ]; then
   tmux set-window-option -ga window-status-format "$(padding $(($padding + 1)))"
 else
-  tmux set-window-option -ga window-status-format "$(padding $padding)"
+  tmux set-window-option -ga window-status-format "$(padding "$padding")"
 fi
 
 tmux set-window-option -ga window-status-format "$pane"
 
-if [ $nerdfonts = true ]; then
+if [ "$nerdfonts" = true ]; then
   tmux set-window-option -ga window-status-format "$(padding $(($padding + 1)))"
 else
-  tmux set-window-option -ga window-status-format "$(padding $padding)"
+  tmux set-window-option -ga window-status-format "$(padding "$padding")"
 fi
 
-if [ $nerdfonts = true ]; then
+if [ "$nerdfonts" = true ]; then
   tmux set-window-option -ga window-status-current-format "#[fg=${status_style_active_fg}]#[bg=${status_style_active_bg}]"
 else
   tmux set-window-option -g window-status-current-format "#[fg=${status_style_active_fg}]#[bg=${status_style_active_bg}]"
 fi
 
-tmux set-window-option -ga window-status-current-format "$(padding $padding)"
+tmux set-window-option -ga window-status-current-format "$(padding "$padding")"
 tmux set-window-option -ga window-status-current-format "$pane"
-tmux set-window-option -ga window-status-current-format "$(padding $padding)"
+tmux set-window-option -ga window-status-current-format "$(padding "$padding")"
 
-if [ $nerdfonts = true ]; then
+if [ "$nerdfonts" = true ]; then
   tmux set-window-option -ga window-status-current-format "#[fg=${status_style_active_bg},bg=${status_style_bg}]"
   tmux set-window-option -ga window-status-current-format "$nerdfonts_left"
 fi
@@ -174,7 +174,7 @@ fi
 #
 
 segments_right=$(get_option "@gruvnov-segments-0-right" "")
-IFS=' ' read -r -a segments_right <<<$segments_right
+IFS=' ' read -r -a segments_right <<<"$segments_right"
 
 last_right_nerdfont=$(get_option "@gruvnov-nerdfonts-last" "")
 last_segment=${segments_right[${#segments_right[@]} - 1]}
@@ -184,32 +184,32 @@ tmux set-option -g status-right ""
 for segment in "${segments_right[@]}"; do
   segment_content=$(get_option "@gruvnov-segment-$segment" "")
   segment_colors=$(get_option "@gruvnov-segment-$segment-colors" "#282a36 #f8f8f2")
-  IFS=' ' read -r -a segment_colors <<<$segment_colors
+  IFS=' ' read -r -a segment_colors <<<"$segment_colors"
   if [ "$segment_content" != "" ] && [ "$segment_colors" != "" ]; then
-    if [ $nerdfonts = true ] && [ ! -n "$(tmux show-option -gqv status-right)" ]; then
+    if [ "$nerdfonts" = true ] && [ ! -n "$(tmux show-option -gqv status-right)" ]; then
       tmux set-option -ga status-right "#[bg=#${status_style_bg}]"
     fi
 
     # condition everything on the non emptiness of the evaluated segment
     tmux set-option -ga status-right "#{?#{w:#{E:@gruvnov-segment-$segment}},"
 
-    if [ $nerdfonts = true ]; then
+    if [ "$nerdfonts" = true ]; then
       tmux set-option -ga status-right "#[fg=${segment_colors[0]}]"
       tmux set-option -ga status-right "$nerdfonts_right"
     fi
 
     tmux set-option -ga status-right "#[fg=${segment_colors[1]}#,bg=${segment_colors[0]}]"
-    tmux set-option -ga status-right "$(padding $padding)"
+    tmux set-option -ga status-right "$(padding "$padding")"
     tmux set-option -ga status-right "$segment_content"
-    tmux set-option -ga status-right "$(padding $padding)"
+    tmux set-option -ga status-right "$(padding "$padding")"
 
-    if [ $nerdfonts = true ] && [ $segment = $last_segment ]; then
+    if [ "$nerdfonts" = true ] && [ "$segment" = "$last_segment" ]; then
       tmux set-option -ga status-right "#[fg=${segment_colors[0]}#,bg=${segment_colors[1]}]"
       tmux set-option -ga status-right "$last_right_nerdfont"
     fi
 
     # set the bg color for the next nerdfonts seperator
-    [ $nerdfonts = true ] && tmux set-option -ga status-right "#[bg=${segment_colors[0]}]"
+    [ "$nerdfonts" = true ] && tmux set-option -ga status-right "#[bg=${segment_colors[0]}]"
 
     # condition end
     tmux set-option -ga status-right ',}'
@@ -224,7 +224,7 @@ for ((row = 1; row <= rows; row++)); do
 
   status_style_double_bg=$(get_option "@gruvnov-status-style-double-bg" "#282a36")
   segments_bottom_left=$(get_option "@gruvnov-segments-$row-left" "")
-  IFS=' ' read -r -a segments_bottom_left <<<$segments_bottom_left
+  IFS=' ' read -r -a segments_bottom_left <<<"$segments_bottom_left"
 
   tmux set-option -g status-format[$row] "#[fill=$status_style_double_bg]#[align=left]"
   nerdfonts_color="$status_style_double_bg"
@@ -232,19 +232,19 @@ for ((row = 1; row <= rows; row++)); do
   for segment in "${segments_bottom_left[@]}"; do
     segment_content=$(get_option "@gruvnov-segment-$segment" "")
     segment_colors=$(get_option "@gruvnov-segment-$segment-colors" "#282a36 #f8f8f2")
-    IFS=' ' read -r -a segment_colors <<<$segment_colors
+    IFS=' ' read -r -a segment_colors <<<"$segment_colors"
     if [ "$segment_content" != "" ]; then
-      if [ $nerdfonts = true ] && [[ "$(tmux show-option -gqv status-format[$row])" != *"#[align=left]" ]]; then
+      if [ "$nerdfonts" = true ] && [[ "$(tmux show-option -gqv status-format[$row])" != *"#[align=left]" ]]; then
         tmux set-option -ga status-format[$row] "#[fg=${nerdfonts_color},bg=#${segment_colors[0]}]"
         tmux set-option -ga status-format[$row] "$nerdfonts_left"
       fi
 
       tmux set-option -ga status-format[$row] "#[fg=${segment_colors[1]},bg=${segment_colors[0]}]"
-      tmux set-option -ga status-format[$row] "$(padding $padding)"
+      tmux set-option -ga status-format[$row] "$(padding "$padding")"
       tmux set-option -ga status-format[$row] "$segment_content"
-      tmux set-option -ga status-format[$row] "$(padding $padding)"
+      tmux set-option -ga status-format[$row] "$(padding "$padding")"
 
-      [ $nerdfonts = true ] && nerdfonts_color="${segment_colors[0]}"
+      [ "$nerdfonts" = true ] && nerdfonts_color="${segment_colors[0]}"
     fi
   done
 
@@ -260,27 +260,27 @@ for ((row = 1; row <= rows; row++)); do
   nerdfonts_color="$status_style_double_bg"
 
   segments_bottom_center=$(get_option "@gruvnov-segments-$row-center" "")
-  IFS=' ' read -r -a segments_bottom_center <<<$segments_bottom_center
+  IFS=' ' read -r -a segments_bottom_center <<<"$segments_bottom_center"
 
   tmux set-option -ga status-format[$row] "#[align=centre]"
 
   for segment in "${segments_bottom_center[@]}"; do
     segment_content=$(get_option "@gruvnov-segment-$segment")
     segment_colors=$(get_option "@gruvnov-segment-$segment-colors" "#282a36 #f8f8f2")
-    IFS=' ' read -r -a segment_colors <<<$segment_colors
+    IFS=' ' read -r -a segment_colors <<<"$segment_colors"
 
     if [ "$segment_content" != "" ]; then
-      if [ $nerdfonts = true ]; then
+      if [ "$nerdfonts" = true ]; then
         tmux set-option -ga status-format[$row] "#[fg=${nerdfonts_color},bg=#${segment_colors[0]}]"
         tmux set-option -ga status-format[$row] "$nerdfonts_left"
       fi
 
       tmux set-option -ga status-format[$row] "#[fg=${segment_colors[1]},bg=${segment_colors[0]}]"
-      tmux set-option -ga status-format[$row] "$(padding $padding)"
+      tmux set-option -ga status-format[$row] "$(padding "$padding")"
       tmux set-option -ga status-format[$row] "$segment_content"
-      tmux set-option -ga status-format[$row] "$(padding $padding)"
+      tmux set-option -ga status-format[$row] "$(padding "$padding")"
 
-      if [ $nerdfonts = true ]; then
+      if [ "$nerdfonts" = true ]; then
         tmux set-option -ga status-format[$row] "#[fg=${nerdfonts_color},bg=#${segment_colors[0]}]"
         tmux set-option -ga status-format[$row] "$nerdfonts_right"
       fi
@@ -294,25 +294,25 @@ for ((row = 1; row <= rows; row++)); do
   nerdfonts_color="$status_style_double_bg"
 
   segments_bottom_right=$(get_option "@gruvnov-segments-$row-right" "")
-  IFS=' ' read -r -a segments_bottom_right <<<$segments_bottom_right
+  IFS=' ' read -r -a segments_bottom_right <<<"$segments_bottom_right"
 
   tmux set-option -ga status-format[$row] "#[align=right]"
 
   for segment in "${segments_bottom_right[@]}"; do
     segment_content=$(get_option "@gruvnov-segment-$segment")
     segment_colors=$(get_option "@gruvnov-segment-$segment-colors" "#282a36 #f8f8f2")
-    IFS=' ' read -r -a segment_colors <<<$segment_colors
+    IFS=' ' read -r -a segment_colors <<<"$segment_colors"
 
     if [ "$segment_content" != "" ]; then
-      if [ $nerdfonts = true ]; then
+      if [ "$nerdfonts" = true ]; then
         tmux set-option -ga status-format[$row] "#[fg=${segment_colors[0]},bg=#${nerdfonts_color}]"
         tmux set-option -ga status-format[$row] "$nerdfonts_right"
       fi
 
       tmux set-option -ga status-format[$row] "#[fg=${segment_colors[1]},bg=${segment_colors[0]}]"
-      tmux set-option -ga status-format[$row] "$(padding $padding)"
+      tmux set-option -ga status-format[$row] "$(padding "$padding")"
       tmux set-option -ga status-format[$row] "$segment_content"
-      tmux set-option -ga status-format[$row] "$(padding $padding)"
+      tmux set-option -ga status-format[$row] "$(padding "$padding")"
     fi
   done
 done
