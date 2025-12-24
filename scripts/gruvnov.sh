@@ -15,6 +15,24 @@ nerdfonts_left=$(get_option "@gruvnov-nerdfonts-left" )
 rows=$(get_option "@gruvnov-rows" 1)
 pane=$(get_option "@gruvnov-pane" "#S:#I:#W")
 
+# #44475a
+# #f8f8f2
+# #282a36
+# #6272a4
+# #ff79C6
+#
+
+# Custom Gruvbox colors
+gruvnov_bg='#1d2122'
+gruvnov_fg='#ebdbb2'
+gruvnov_alt='#928374'
+gruvnov_red='#fb4934'
+gruvnov_gre='#b8bb26'
+gruvnov_yel='#fabd2f'
+gruvnov_blu='#83a598'
+gruvnov_pur='#d3869b'
+gruvnov_cya='#8ec07c'
+
 #
 # Default segments
 #
@@ -60,9 +78,9 @@ tmux set-option -g mode-style "bg=$mode_style_bg,fg=$mode_style_fg"
 #
 
 status_style_bg=$(get_option "@gruvnov-status-style-bg" "#44475a")
-status_style_fg=$(get_option "@gruvnov-status-style-fg" "#f8f8f2")
+status_style_fg=$(get_option "@gruvnov-status-style-fg" "$gruvnov_red bold") # Used to be #f8f8f2
 status_style_active_bg=$(get_option "@gruvnov-status-style-active-bg" "#6272a4")
-status_style_active_fg=$(get_option "@gruvnov-status-style-active-fg" "#1d2122")
+status_style_active_fg=$(get_option "@gruvnov-status-style-active-fg" "$gruvnov_bg") # Used to be #f8f8f2
 status_style_activity_fg=$(get_option "@gruvnov-status-activity-fg" "#ff79C6")
 tmux set-option -g status-style "bg=$status_style_bg,fg=$status_style_fg"
 
@@ -70,8 +88,8 @@ tmux set-option -g status-style "bg=$status_style_bg,fg=$status_style_fg"
 # pane
 #
 
-pane_border_style=$(get_option "@gruvnov-pane-border-style" "#282a36")
-pane_active_border_style=$(get_option "@gruvnov-pane-active-border-style" "#fabd2f")
+pane_border_style=$(get_option "@gruvnov-pane-border-style" "$gruvnov_cya")               # Used to be #282a36
+pane_active_border_style=$(get_option "@gruvnov-pane-active-border-style" "$gruvnov_yel") # Used to be #44475a
 tmux set-option -g pane-border-style "fg=${pane_border_style}"
 tmux set-option -g pane-active-border-style "fg=${pane_active_border_style}"
 
