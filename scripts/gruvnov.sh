@@ -12,7 +12,7 @@ padding=$(get_option "@gruvnov-padding" 1)
 nerdfonts=$(get_option "@gruvnov-nerdfonts" false)
 nerdfonts_right=$(get_option "@gruvnov-nerdfonts-right" )
 nerdfonts_left=$(get_option "@gruvnov-nerdfonts-left" )
-rows=$(get_option "@gruvnov-rows" 0)
+rows=$(get_option "@gruvnov-rows" 1)
 pane=$(get_option "@gruvnov-pane" "#S:#I:#W")
 
 #
@@ -29,7 +29,7 @@ upsert_option "@gruvnov-segment-whoami" "#(whoami)@#h"
 if [ "$rows" -eq 0 ]; then
   tmux set-option -g status on
 else
-  tmux set-option -g status $(expr "$rows" + 1)
+  tmux set-option -g status $(("$rows" + 1))
 fi
 
 #
