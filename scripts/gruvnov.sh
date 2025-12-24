@@ -24,10 +24,10 @@ pane=$(get_option "@gruvnov-pane" "#I#{?pane_in_mode,  #{pane_mode},}  #W#
 #
 
 # Custom Gruvbox colors
-gruvnov_fg='#1d2122'
+gruvnov_fg='#1d2122 bold'
 gruvnov_bg='#ebdbb2'
 gruvnov_alt='#928374'
-gruvnov_red='#fb4934'
+gruvnov_red='#fb4934 bold'
 gruvnov_gre='#b8bb26'
 gruvnov_yel='#fabd2f'
 gruvnov_blu='#83a598'
@@ -79,9 +79,9 @@ tmux set-option -g mode-style "bg=$mode_style_bg,fg=$mode_style_fg"
 #
 
 status_style_bg=$(get_option "@gruvnov-status-style-bg" "#44475a")
-status_style_fg=$(get_option "@gruvnov-status-style-fg" "$gruvnov_red bold") # Used to be #f8f8f2
+status_style_fg=$(get_option "@gruvnov-status-style-fg" "$gruvnov_red") # Used to be #f8f8f2
 status_style_active_bg=$(get_option "@gruvnov-status-style-active-bg" "$gruvnov_bg")
-status_style_active_fg=$(get_option "@gruvnov-status-style-active-fg" "$gruvnov_fg bold") # Used to be #f8f8f2
+status_style_active_fg=$(get_option "@gruvnov-status-style-active-fg" "$gruvnov_fg") # Used to be #f8f8f2
 status_style_activity_fg=$(get_option "@gruvnov-status-activity-fg" "#ff79C6")
 tmux set-option -g status-style "bg=$status_style_bg,fg=$status_style_fg"
 
